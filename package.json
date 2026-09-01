@@ -1,0 +1,29 @@
+{
+  "name": "spectrum-editor",
+  "version": "1.0.0",
+  "description": "Modular and reusable code editor customization package with SVG file icon resolution and syntax color theme engine.",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node test/test-package.js",
+    "start": "npx -y serve . -p 3000"
+  },
+  "keywords": [
+    "editor",
+    "syntax-highlighting",
+    "svg-icons",
+    "themes",
+    "code-editor",
+    "javascript",
+    "dart",
+    "html",
+    "python",
+    "rust",
+    "go",
+    "cpp",
+    "customization"
+  ],
+  "author": "Spectrum Team",
+  "license": "MIT"
+}

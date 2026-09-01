@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spectrum Editor &bull; Customization Package Showcase</title>
+  <meta name="description" content="Modular, reusable code editor customization package with high-fidelity SVG file icons, syntax color token mapping, and multi-language highlighter." />
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+      </div>
+      <span class="brand-title">SPECTRUM EDITOR</span>
+      <span class="brand-badge">PRO v1.0</span>
+    </div>
+
+    <div class="header-controls">
+      <div class="theme-control-wrapper">
+        <label for="themeSelect">Theme Preset:</label>
+        <select id="themeSelect" class="theme-select" aria-label="Select Color Theme"></select>
+      </div>
+
+      <div class="quick-links">
+        <button class="icon-btn" id="formatBtn" title="Re-render Highlighter">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          Format & Sync
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Editor Workspace -->
+  <div class="editor-layout">
+    
+    <!-- Sidebar Explorer -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-section">
+        <span class="sidebar-title">Project Explorer</span>
+        <span class="file-count-badge" id="fileCount">0 files</span>
+      </div>
+
+      <div class="add-file-box">
+        <input type="text" id="newFileInput" class="new-file-input" placeholder="New file (e.g. index.ts, model.dart)..." />
+        <button id="addFileBtn" class="btn-add" title="Add File">+</button>
+      </div>
+
+      <ul id="fileTree" class="file-tree" role="tree"></ul>
+    </aside>
+
+    <!-- Editor Main Canvas -->
+    <main class="editor-main" role="main">
+      
+      <!-- Open Tabs Bar -->
+      <nav class="tab-bar" id="tabBar" aria-label="File Tabs"></nav>
+
+      <!-- Editor Code Canvas with Synchronized Highlight Layer -->
+      <div class="editor-canvas-wrapper">
+        <div class="editor-canvas" id="editorContainer">
+          <div class="line-numbers" id="lineGutter" aria-hidden="true"></div>
+          <div class="code-area-container">
+            <pre class="code-view" id="codeHighlight" aria-hidden="true"></pre>
+            <textarea id="codeEditor" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="Code Editor"></textarea>
+          </div>
+        </div>
+
+        <!-- Token Palette Inspector Drawer -->
+        <section class="inspector-drawer">
+          <div class="inspector-header">
+            <span class="inspector-title">Active Palette Tokens &bull; <span id="themePill"></span></span>
+          </div>
+          <div class="palette-grid" id="paletteGrid"></div>
+        </section>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Status Bar Footer -->
+  <footer class="status-bar">
+    <div class="status-left">
+      <div class="status-item">
+        <span class="status-badge" id="langBadge">DART</span>
+      </div>
+      <div class="status-item">
+        <span id="tokenCount">0 tokens</span>
+      </div>
+    </div>
+
+    <div class="status-right">
+      <div class="status-item">
+        <span id="cursorPos">Ln 1, Col 1</span>
+      </div>
+      <div class="status-item">
+        <span>UTF-8</span>
+      </div>
+      <div class="status-item">
+        <span>Spaces: 2</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Bootstrap -->
+  <script type="module">
+    import { EditorApp } from './src/editor/editorCore.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      window.app = new EditorApp();
+
+      document.getElementById('formatBtn')?.addEventListener('click', () => {
+        window.app.updateHighlight();
+        window.app.updateLineNumbers();
+      });
+    });
+  </script>
+</body>
+</html>
