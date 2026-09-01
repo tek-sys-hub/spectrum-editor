@@ -14,7 +14,7 @@ export class EditorApp {
     this.files = [...SAMPLE_FILES];
     this.activeFileId = this.files[0].id;
     this.currentThemeId = DEFAULT_THEME_ID;
-    this.openTabs = this.files.map(f => f.id);
+    this.openTabs = this.files.slice(0, 5).map(f => f.id);
 
     // DOM Elements cache
     this.dom = {
